@@ -1,2 +1,2 @@
 # ISPC2
-Proyctos para ispc
+Proyecto de programacion ISPC
