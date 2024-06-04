@@ -84,6 +84,9 @@ class SistemaDeSeguridad:
                 alarma_activada = False
             print("Apagando alarma")
 
+    def desactivar_alarma(self):
+        self.buzzer.desactivar()
+
     def checkear_temperatura(self):
         for sensor in self.sensores:
             if isinstance(sensor, SensorDeTemperatura):
@@ -94,6 +97,18 @@ class SistemaDeSeguridad:
                 else:
                     self.extractor.desactivar()
 
+    def checkear_temperatura_manual(self):
+        for sensor in self.sensores:
+            if isinstance(sensor, SensorDeTemperatura):
+                temperatura = sensor.obtener_lectura()
+                print(f"Temperatura: {temperatura:.2f}C")
+                if temperatura > TEMPERATURA_MAXIMA:
+                    activar = input(f"¿Activar Extractor? 1=SI / 2=NO ")
+                    if activar == "1":
+                        self.extractor.activar()
+                    elif activar == "2":
+                        self.extractor.desactivar()
+
     def checkear_fuga_de_gas(self):
         for sensor in self.sensores:
             if isinstance(sensor, SensorDeGas) and sensor.obtener_lectura():
@@ -102,18 +117,8 @@ class SistemaDeSeguridad:
             else:
                 self.buzzer.desactivar()
 
-
-# Creación de objetos sensores y sistema de seguridad
-smovimiento = SensorDeMovimiento()
-stemperatura = SensorDeTemperatura()
-sgas = SensorDeGas()
-
-sistema = SistemaDeSeguridad()
-sistema.agregar_sensor(smovimiento)
-sistema.agregar_sensor(stemperatura)
-sistema.agregar_sensor(sgas)
-
-# Ejemplo de uso
-sistema.activar_alarma()
-sistema.checkear_temperatura()
-sistema.checkear_fuga_de_gas()
+    def activar_sirena(self, estado):
+        if estado:
+            self.buzzer.activar()
+        else:
+            self.buzzer.desactivar()
