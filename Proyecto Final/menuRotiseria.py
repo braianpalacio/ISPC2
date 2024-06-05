@@ -3,8 +3,10 @@ import SistemaDeRotiseria
 import time
 from colorama import init, Fore, Back, Style  # Para dar color a la consola
 
+
 # Para que solo se de color a parte que queremos, debemos inicializar
 init(autoreset=True)  # el módulo con init(autoreset=True)
+
 
 # CABECERA
 def cabecera_presentacion():  # parte grafica para consola
@@ -15,28 +17,36 @@ def cabecera_presentacion():  # parte grafica para consola
     print("-----------------------------------------------------------------------------------")
     print("| Materia  : Programacion                              Lenguaje : Python 2do año  |")
     print("| Profesor : Carlos Charletti                                                     |")
-    print("| Repositorio:                                                                    |")
+    print("| Repositorio: https://github.com/braianpalacio/ISPC2                             |")
     print("|                                                                                 |")
     print("| Alumnos  :  Emiliano Arce | Palacio Braian | Mario  Pelliza                     |")
     print("|                    Guillermo Godoy | Romina Peña                                |")
     print("-----------------------------------------------------------------------------------")
 
+
     time.sleep(3)
+
+
 
 
 def limpia():  # limpia la pantalla de la consola
     from os import system
     system("cls")
 
+
 cabecera_presentacion()
 limpia()
-print("""\nBuenos días, ¿qué operacion desea realizar?""")   
+print("""\nBuenos días, ¿qué operacion desea realizar?""")  
+
 
 while True:#MENU PARA EL USUARIO
-    print(Fore.GREEN+Style.BRIGHT+"""\n1) Sistema"""+Fore.BLUE+"""   2) Manual"""+Fore.RED+"""   3) Salir  """)
-    menu = input("""\nSeleccione una opción: """)
-    # if menu == "1":#SISTEMA AUTOMATICO
-    # sistema ()
+    print(Fore.GREEN+Style.BRIGHT+"""\n1) Sistema"""+Fore.BLUE+"""   2) Manual"""+Fore.LIGHTYELLOW_EX+""" 3) Polimorfismo"""+Fore.RED+"""  4) Salir  """)
+    menu = input("""\nSeleccione una opción: """).strip()
+    if menu == "1":  # SISTEMA AUTOMATICO
+        print(Fore.GREEN+"Para ir al menu (Ctrl + C)")
+        sistema= SistemaDeRotiseria.Automatico()
+        sistema.checkear()
+
 
     if menu == "2":  # MANUAL
         print(Fore.BLUE+"\n Seleccione una opción:")
@@ -58,7 +68,12 @@ while True:#MENU PARA EL USUARIO
             elif menuSirena == "2":
                 SistemaDeRotiseria.activar_sirena(False)
 
-    elif menu == "3":
+
+    if menu == "3":  # POLIMORFISMO
+        print(Fore.LIGHTYELLOW_EX+"Para ir al menu (Ctrl + C)")
+        SistemaDeRotiseria.operar_administrador()
+   
+    elif menu == "4": # SALIR
         print(Fore.RED+"\n Muchas gracias, adios.")
         exit()
     else:
