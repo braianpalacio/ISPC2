@@ -30,7 +30,7 @@ class SensorDeGas(Sensor):
     def __init__(self):
         super().__init__("Gas")
     def obtener_lectura(self):
-        return random.choice([True, False])
+        return random.choice([True, False, False])
     
 class Buzzer:
     def activar(self):
@@ -64,10 +64,11 @@ def activar_alarma():
     try:
         while True:
             if smovimiento.obtener_lectura():
-                print("Movimiento detectado fuera del horario de trabajo!")
-                buzzer.activar()
-                alarma_activada = True
-                print("Ctrl + C para desactivar")
+                if not alarma_activada:
+                    print("Movimiento detectado fuera del horario de trabajo!")
+                    buzzer.activar()
+                    alarma_activada = True
+                    print("Ctrl + C para desactivar")
             else:
                 if not alarma_activada:
                     print("Sin movimiento")
