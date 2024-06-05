@@ -17,7 +17,8 @@ def cabecera_presentacion():  # parte grafica para consola
     print("| Profesor : Carlos Charletti                                                     |")
     print("| Repositorio:                                                                    |")
     print("|                                                                                 |")
-    print("| Alumnos  :  Emiliano Arce | Palacio Braian | Mario  Pelliza | Romina Peña       |")
+    print("| Alumnos  :  Emiliano Arce | Palacio Braian | Mario  Pelliza                     |")
+    print("|                    Guillermo Godoy | Romina Peña                                |")
     print("-----------------------------------------------------------------------------------")
 
     time.sleep(3)
@@ -29,19 +30,19 @@ def limpia():  # limpia la pantalla de la consola
 
 cabecera_presentacion()
 limpia()
-
+print("""\nBuenos días, ¿qué operacion desea realizar?""")   
 
 while True:#MENU PARA EL USUARIO
-    print("""\n-1) Sistema   2) Manual   3) Salir  """)
+    print(Fore.GREEN+Style.BRIGHT+"""\n1) Sistema"""+Fore.BLUE+"""   2) Manual"""+Fore.RED+"""   3) Salir  """)
     menu = input("""\nSeleccione una opción: """)
     # if menu == "1":#SISTEMA AUTOMATICO
     # sistema ()
 
     if menu == "2":  # MANUAL
-        menuManual = input(
-            "\n-Seleccione una opción:  1) Alarma   2) Temperatura   3) Gas   4) Sirena   ")
+        print(Fore.BLUE+"\n Seleccione una opción:")
+        menuManual = input(Fore.BLUE+""" 1) Alarma   2) Temperatura   3) Gas   4) Sirena  : """)
         if menuManual == "1":  # Alarma
-            menuAlarma = input("""\nALARMA: 1) Activar  2) Desactivar """)
+            menuAlarma = input(Fore.BLUE+"""\nALARMA: 1) Activar  2) Desactivar : """)
             if menuAlarma == "1":
                 SistemaDeRotiseria.activar_alarma()
             elif menuAlarma == "2":
@@ -51,14 +52,14 @@ while True:#MENU PARA EL USUARIO
         if menuManual == "3":  # Gas
             SistemaDeRotiseria.checkear_fuga_de_gas()
         if menuManual == "4":  # Sirena
-            menuSirena = input("""\nSIRENA: 1) Activar  2) Desactivar """)
+            menuSirena = input(Fore.BLUE+"""\nSIRENA: 1) Activar  2) Desactivar  :""")
             if menuSirena == "1":
                 SistemaDeRotiseria.activar_sirena(True)
             elif menuSirena == "2":
                 SistemaDeRotiseria.activar_sirena(False)
 
     elif menu == "3":
-        print("\n Muchas gracias, adios.")
+        print(Fore.RED+"\n Muchas gracias, adios.")
         exit()
     else:
-        print(+"Opcion no valida")
+        print(Fore.RED+"Opcion no valida")
