@@ -54,8 +54,14 @@ class SensorDeGas(Sensor):
     def obtener_lectura(self):
         return random.choice([True, False])
 
+# Simula el funcionamiento de cámara de seguridad. Maneja los valores aleatorios True o Flase
+class CamaraSeguridad(Sensor):
+    def __init__(self):
+        super().__init__("Camara")
 
 
+    def obtener_lectura(self):
+        return random.choice([True, False])
 
 class Buzzer:  # Sirena para el sensor de gas y para la alarma
     def activar(self):
@@ -85,13 +91,23 @@ class Extractor:
         print("Extractor desactivado.")
 
 
+class Bateria:
+    def activar_bateria(self):
+        print("Activando bateria")
+
+
+    def desactivar_bateria(self):
+        print("Bateria cargando")
+
 
 
 smovimiento = SensorDeMovimiento()  # Instanciamos sensores
 stemperatura = SensorDeTemperatura()
 sgas = SensorDeGas()
+scamara= CamaraSeguridad()
 buzzer = Buzzer()  # Y actuadores
 extractor = Extractor()
+bateria= Bateria()
 
 
 
@@ -151,6 +167,14 @@ def checkear_temperatura():  # lo mismo que el metodo anterior pero activa el ex
         extractor.desactivar()
 
 
+def checkear_camara():  # metodo para monitorizar el funcionamiento de la cámara
+    if scamara.obtener_lectura():    
+        print("Cámara apagada")  # imprime msj
+        bateria.activar_bateria()  # activa bateria
+    else:  # si es falso
+        print("Cámara grabando")  # imprime msj
+        bateria.desactivar_bateria()  # desactiva bateria
+
 
 
 def checkear_fuga_de_gas():
@@ -161,16 +185,13 @@ def checkear_fuga_de_gas():
         print("Sin fuga de gas")  # imprime msj
         buzzer.desactivar()  # desactiva buzzer
 
-
-
+   
 
 def activar_sirena(estado):  # para activar el buzzer
     if estado == True:
         buzzer.activar()
     else:
         buzzer.desactivar_sirena()
-
-
 
 
 class AdministradorSensores:
@@ -197,6 +218,7 @@ def operar_administrador():
     administrador.agregar_sensor(SensorDeMovimiento())
     administrador.agregar_sensor(SensorDeTemperatura())
     administrador.agregar_sensor(SensorDeGas())
+    administrador.agregar_sensor(CamaraSeguridad())
 
 
     try:
@@ -208,6 +230,8 @@ def operar_administrador():
                         print(f"Gas: {resultados['Gas']}")
                     if "Movimiento" in resultados:
                         print(f"Movimiento detectado: {resultados['Movimiento']}.")
+                    if "Camara" in resultados:
+                        print(f"Cámara: {resultados['Camara']}")
                     time.sleep(10)
 
 
@@ -224,6 +248,7 @@ class Automatico:
             while True:
                 checkear_temperatura()
                 checkear_fuga_de_gas()
+                checkear_camara()
                 time.sleep(10)
            
         except KeyboardInterrupt:

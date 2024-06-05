@@ -1,7 +1,9 @@
 # MODULO QUE EL USUARIO VE E INTERACTUA CON EL PROGRAMA
 import SistemaDeRotiseria
 import time
-from colorama import init, Fore, Back, Style  # Para dar color a la consola
+import colorama
+
+from colorama import init, Fore, Back, Style  
 
 
 # Para que solo se de color a parte que queremos, debemos inicializar
@@ -9,7 +11,7 @@ init(autoreset=True)  # el módulo con init(autoreset=True)
 
 
 # CABECERA
-def cabecera_presentacion():  # parte grafica para consola
+def cabecera_presentacion():  
     print()
     print()
     print("-----------------------------------------------------------------------------------")
@@ -50,7 +52,7 @@ while True:#MENU PARA EL USUARIO
 
     if menu == "2":  # MANUAL
         print(Fore.BLUE+"\n Seleccione una opción:")
-        menuManual = input(Fore.BLUE+""" 1) Alarma   2) Temperatura   3) Gas   4) Sirena  : """)
+        menuManual = input(Fore.BLUE+""" 1) Alarma   2) Temperatura   3) Gas  4) Cámara 5) Sirena  : """)
         if menuManual == "1":  # Alarma
             menuAlarma = input(Fore.BLUE+"""\nALARMA: 1) Activar  2) Desactivar : """)
             if menuAlarma == "1":
@@ -61,7 +63,9 @@ while True:#MENU PARA EL USUARIO
             SistemaDeRotiseria.checkear_temperatura_manual()
         if menuManual == "3":  # Gas
             SistemaDeRotiseria.checkear_fuga_de_gas()
-        if menuManual == "4":  # Sirena
+        if menuManual == "4":  # Gas
+            SistemaDeRotiseria.checkear_camara()
+        if menuManual == "5":  # Sirena
             menuSirena = input(Fore.BLUE+"""\nSIRENA: 1) Activar  2) Desactivar  :""")
             if menuSirena == "1":
                 SistemaDeRotiseria.activar_sirena(True)
